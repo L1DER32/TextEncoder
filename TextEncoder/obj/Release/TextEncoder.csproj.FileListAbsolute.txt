@@ -1,0 +1,7 @@
+C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\bin\Release\TextEncoder.exe
+C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\bin\Release\TextEncoder.pdb
+C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\obj\Release\TextEncoder.Form1.resources
+C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\obj\Release\TextEncoder.Properties.Resources.resources
+C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\obj\Release\TextEncoder.csproj.GenerateResource.Cache
+C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\obj\Release\TextEncoder.exe
+C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\obj\Release\TextEncoder.pdb

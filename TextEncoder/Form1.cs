@@ -21,10 +21,13 @@ namespace TextEncoder
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
+            // creating open dialog
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = ".txt File|*.txt";
             dialog.Title = "Select text file";
+
             dialog.Multiselect = false;
+
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 InputBox.Text = String.Empty; //reset
@@ -34,13 +37,15 @@ namespace TextEncoder
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "An error occured");
+                    MessageBox.Show(ex.Message, "An error occurred", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
+        #region CutCopyPaste Functions
         private void cutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //getting focused rtxtbox
             RichTextBox tBase = FindFocusedTextBox();
             if (tBase != null)
             {
@@ -54,10 +59,11 @@ namespace TextEncoder
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //getting focused rtxtbox
             RichTextBox tBase = FindFocusedTextBox();
             if (tBase != null)
             {
-                //// Ensure that text is selected in the text box.   
+                // Ensure that text is selected in the text box.   
                 if (tBase.SelectionLength > 0)
                     // Copy the selected text to the Clipboard.
                     tBase.Copy();
@@ -66,6 +72,7 @@ namespace TextEncoder
 
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //getting focused rtxtBox
             RichTextBox tBase = FindFocusedTextBox();
             if (tBase != null)
             {
@@ -107,14 +114,25 @@ namespace TextEncoder
             }
             return null;
         }
+        #endregion CutCopyPaste Functions
 
         private void btnEncode_Click(object sender, EventArgs e)
         {
+            //null, emptyString and whiteSpace check
+            if (string.IsNullOrWhiteSpace(InputBox.Text))
+            {
+                MessageBox.Show("There is no text.", "Text Encoder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //creating error tracking variable
             bool resultOK = true;
 
+            // creating save dialog
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = ".xml File|*.xml";
             dialog.Title = "Save XML file";
+
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 //packing all text description info into one class
@@ -140,19 +158,37 @@ namespace TextEncoder
 
                 try
                 {
-                    List<string[]> paragraphs = SimpleTextSplitter.SplitToParagraphsWithSentences(InputBox.Text);
+                    if (checkBoxSentences.Checked)
+                    {
+                        //if sentence encoding is included 
+                        //text is spitted to paragraphs and sentences
+                        List<string[]> paragraphsNSentences = SimpleTextSplitter.SplitToParagraphsWithSentences(InputBox.Text);
 
-                    XmlEncoder.EncodeTextFile(dialog.FileName, info, paragraphs, checkBoxPunc.Checked);
+                        //then encoded using first overload ( List<string[]> )
+                        XmlEncoder.EncodeTextFile(dialog.FileName, info, paragraphsNSentences, checkBoxPunc.Checked);
+                    }
+                    else
+                    {
+                        //usual split
+                        string[] paragraphs = InputBox.Text.Split(new string[] { " \n", "\n", }, StringSplitOptions.RemoveEmptyEntries);
+
+                        //encoded using second overload ( string[] )
+                        XmlEncoder.EncodeTextFile(dialog.FileName, info, paragraphs, checkBoxPunc.Checked);
+                    }
+
                 }
                 catch (Exception ex)
                 {
                     resultOK = false;
-                    MessageBox.Show(ex.ToString(), "Error");
-
+                    MessageBox.Show(ex.Message, "Text Encoder", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
-                    if (resultOK && checkBoxOpen.Checked) System.Diagnostics.Process.Start(dialog.FileName);
+                    if (resultOK)
+                    {
+                        if (checkBoxOpen.Checked) System.Diagnostics.Process.Start(dialog.FileName);
+                        else MessageBox.Show("Operation complete", "Text Encoder", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
 
             }//end if

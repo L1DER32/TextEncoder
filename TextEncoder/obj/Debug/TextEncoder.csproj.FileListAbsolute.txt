@@ -1,6 +1,5 @@
 C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\bin\Debug\TextEncoder.exe
 C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\bin\Debug\TextEncoder.pdb
-C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\obj\Debug\TextEncoder.csprojResolveAssemblyReference.cache
 C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\obj\Debug\TextEncoder.Form1.resources
 C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\obj\Debug\TextEncoder.Properties.Resources.resources
 C:\Users\GT-PC\Dropbox\TextEncoder\TextEncoder\obj\Debug\TextEncoder.csproj.GenerateResource.Cache
